@@ -55,7 +55,9 @@
 
     <script>
       // Fetch and display Products
-      fetch("http://localhost:3000/product")
+      fetch(
+        "https://api-using-nodejs-expressjs-production.up.railway.app/product"
+      )
         .then((response) => response.json())
         .then((data) => {
           console.log("Products:", data);
@@ -89,7 +91,9 @@
         })
         .catch((error) => console.error("Error fetching products:", error));
 
-      fetch("http://localhost:3000/orders")
+      fetch(
+        "https://api-using-nodejs-expressjs-production.up.railway.app/orders"
+      )
         .then((response) => response.json())
         .then((data) => {
           console.log("Orders:", data);
