@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product and Order Lists</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      h1 {
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Product List</h1>
+    <table id="productTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h1>Order List</h1>
+    <table id="orderTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Quentity</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      // Fetch and display Products
+      fetch("http://localhost:3000/product")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Products:", data);
+
+          const products = data.product;
+          if (Array.isArray(products)) {
+            const tableBody = document.querySelector("#productTable tbody");
+            products.forEach((product) => {
+              const row = document.createElement("tr");
+
+              const idCell = document.createElement("td");
+              idCell.textContent = product._id;
+              row.appendChild(idCell);
+
+              const nameCell = document.createElement("td");
+              nameCell.textContent = product.name;
+              row.appendChild(nameCell);
+
+              const priceCell = document.createElement("td");
+              priceCell.textContent = product.price;
+              row.appendChild(priceCell);
+
+              tableBody.appendChild(row);
+            });
+          } else {
+            console.error(
+              "Expected an array of products but received:",
+              products
+            );
+          }
+        })
+        .catch((error) => console.error("Error fetching products:", error));
+
+      fetch("http://localhost:3000/orders")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Orders:", data);
+
+          const orders = data.orders;
+          if (Array.isArray(orders)) {
+            const tableBody = document.querySelector("#orderTable tbody");
+            orders.forEach((order) => {
+              const row = document.createElement("tr");
+
+              const idCell = document.createElement("td");
+              idCell.textContent = order._id;
+              row.appendChild(idCell);
+
+              const customerNameCell = document.createElement("td");
+              customerNameCell.textContent = order.name;
+              row.appendChild(customerNameCell);
+
+              const totalAmountCell = document.createElement("td");
+              totalAmountCell.textContent = order.quentity;
+              row.appendChild(totalAmountCell);
+
+              tableBody.appendChild(row);
+            });
+          } else {
+            console.error("Expected an array of orders but received:", orders);
+          }
+        })
+        .catch((error) => console.error("Error fetching orders:", error));
+    </script>
+  </body>
+</html>
