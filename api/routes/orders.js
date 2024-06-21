@@ -11,7 +11,7 @@ router.get("/",  OrdersController.orders_get_all);
 
 router.post("/", checkAuth, OrdersController.orders_post_all);
 
-router.get("/:orderID", checkAuth, OrdersController.orders_get_orders);
+router.get("/:orderID",  OrdersController.orders_get_orders);
 
 router.delete("/:orderID", checkAuth, OrdersController.orders_delete_all);
 
